@@ -9,6 +9,7 @@ the "for .. in" method iterates over the properties of an Object and gets the IN
 the "for .. of" method iterates over iterable objects such as an array and gets each ITEM
 ['do', 're', 'mi'] == do, re, mi
 
+
 Interpolation:
 {{ pageTitle }}
 
@@ -42,21 +43,29 @@ Interface (TypeScript):
 - Can use the interface as a data type (string, number, etc)
 - Development time only (good for building robust javascript)
 
+
 Clean up Editor:
 A useful tip to clean up the editor is to add the *.js and *.map pattern to the ignored file extensions setting.
 In WebStorm this is in File > Settings > Editor > File Types > Ignore files and Folders
 (seperated by semi-colons e.g. ...;*.js;*.map)
 
 
-Component Lifecycles:
+Component Lifecycle hooks:
 OnInit: Perform component initialization, e.g. retrieve data from back end
 OnChanges: Perform action after change to input properties
 OnDestroy: Perform any clean up before angular destroys the component
 
 
+Encapsulating Styles:
+Using encapsulated styles will help modularize components and prevent leakage of css to other components.
+This can be done in the Component via styles or styleUrls property in the decorator (see product-list.component.ts)
+styles == array of style elements e.g. styles:['thead{ color: blue }']
+styleUrls == array of external stylesheets e.g. styleUrls: ['app/products/product-list.component.css', ...]
+
+
 Custom Pipes:
 Implements PipeTransform
-@Pipe declaration
+@Pipe decorator
 
 return filter ? value.filter((product:IProduct) =>
         product.productName.toLocaleLowerCase().indexOf(filter) != -1) : value;
@@ -69,5 +78,35 @@ For each product in the list, the product name is converted to lowercase and
 the indexOf is used to determine if the filtered text is found in the product name
 if so the element is added to the filtered list
 
-if filter is defined and/or not null do the filter
+If filter is defined and/or not null do the filter
 else no filter specified thus return the original value (full list of products)
+
+
+
+Nested Components:
+A nested component is a component which will be used by one or many other components.
+A nested component sits within a Container Component or Parent Component.
+
+The container passes data to the nested component by binding to a nested component property
+that is decorated with the @Input decorator.
+
+The nested component uses an Event Emitting property decorated with an @Output decorator to raise events.
+You can think of the @input and @Output decorated properties as the public API of the nested component,
+everything else in the component is encapsulated and only accessible to the nested component's template and class.
+
+The Input and Output decorators have a prefix @ and are functions so should have the suffix () e.g. @Input() property: ...
+
+The Output decorator is attached to a property declared as an EventEmitter.
+Use the generic argument to define the event payload type e.g. EventEmitter<string> or EventEmitter<number>
+Use the 'new' keyword to create an instance of the EventEmitter
+
+In the Container Component use the nested component as a directive, the directive name == the nested components
+selector property.
+
+Use property binding to pass data to the nested component
+
+Use event binding to respond to events from the nested component. I.E. Use the $event (angluar variable) to access
+the event payload passed from the nested component.
+
+
+
