@@ -110,3 +110,4 @@ the event payload passed from the nested component.
 
 
 
+TODO: Services and Dependency Injection module on Pluralsight
