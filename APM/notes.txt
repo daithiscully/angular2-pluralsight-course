@@ -1,0 +1,38 @@
+ES2015 has two for loop methods:
+
+for .. in
+for .. of
+
+the "for .. in" method iterates over the properties of an Object and gets the INDEX of each item
+['do', 're', 'mi'] == [0, 1, 2]
+
+the "for .. of" method iterates over iterable objects such as an array and gets each ITEM
+['do', 're', 'mi'] == do, re, mi
+
+Interpolation:
+{{ pageTitle }}
+
+Property Binding:
+<img [src]="product.imageUrl">
+
+Event Binding:
+<button (click)="toggleImage()">
+
+Interpolation with JavaScript Conditional Operator
+{{showImage ? 'Hide' : 'Show'}}    (Hide is the TRUE value for showImage, and Show is the FALSE value)
+
+Two Way Binding:
+<input [(ngModel)]='listFilter'>
+
+
+Piping values is useful for formatting the values:
+Pipes also have some parameters you can modify such as the below:
+{{ product.price | currency:'EUR':true:'1.2-2' | lowercase }}
+- this pipes the price into a curreny of Locale Euro, true displays the euro symbol instead of the EUR abbreviation,
+1.2-2 means:
+    1 = no less than one digit to the left of the decimal point
+    .2 = no less than two digits after the decimal point
+    -2 = no more than two digits after the decimal point
+    (€1.00, €25.99, etc)
+
+
