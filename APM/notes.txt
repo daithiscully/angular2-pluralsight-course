@@ -145,4 +145,58 @@ The Angular Injector will inject an instance of the service when the component i
 ------------------------------------------------------------------------------------------------------------------------
 
 Retrieving data using http:
+You can use Promises instead of Observables (but the pluralsight course is covering Observables)
+The main differences between them are:
+Promise:                    Observable:
+Returns a single value      Works with multiple values over time
+Not cancellable             Cancellable
+                            Supports map, filter, reduce and similar operators
+
+To setup:
+Include Angular 2 Http script
+Register HTTP_PROVIDERS
+Import RxJS (Reactive Extensions for JavaScript)
+
+Register the HTTP services at the app component level as we may/will want to use http throughout our application.
+
+Because HTTP isn't part of the Angular 2 core and is not included in the main Angular2 script file, it is an optional
+service in it's own library. So firstly we must add the script tag for the HTTP library to the index.html file.
+(NOTE: the script tag for the reactive extensions library is already (should be) there as it is used by angular.
+
+Because there is actually several services involved the Angular HTTP client library provides a single, constant,
+that defines the set of service providers from the Angular HTTP library. It's called HTTP_PROVIDERS.
+
+See app.component.ts to see how to import the features we need from the RxJS library. The way this is done is unusual because:
+It tells the module loader to load this library but imports nothing.
+When a library is loaded, it's javascript is executed and for RxJS, executing the javascript loads the full set of
+Observable operators that we'll need throughout our application.
+
+We often encapsulate the data access for our application into a data service that can be used by any component or
+other service that needs it.
+
+Summary:
+Include the Angular 2 Http script.
+Register the HTTP_PROVIDERS in the appropriate location in the component hierarchy, to use it throughout the application
+register it in the root app component.
+Import RxJS to load in all of the Reactive Extension features such as the map operator.
+Build a data access service to wrap Http requests.
+In that data service specify the needed imports.
+Define a dependency for the http client service using the constructor parameter approach.
+Create a method for each http request (getProducts()).
+In the method, call the desired http method, such as get, and pass in the URL to the desired server.
+Use a map operator to transform the ra http response to a JSON object
+Do error handling as desired.
+
+In any class that needs data from a data service, call the subscribe method to subscribe to the observable.
+Provide a function to execute when the Observable emits an item.
+This often assigns a property to the returned JSON object, and if that property is bound to a template, the retrieved
+data appears in the view.
+Add an error function to handle any returned errors.
+
+TODO: Learn more about Observables and Reactive Extensions
+
+
+
+
+
 
