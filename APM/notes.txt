@@ -195,8 +195,62 @@ Add an error function to handle any returned errors.
 
 TODO: Learn more about Observables and Reactive Extensions
 
+------------------------------------------------------------------------------------------------------------------------
+
+Navigation and Routing:
+Configure a route for each component
+Define options/actions
+
+Setup:
+Include the Angular 2 router script
+Define the base element (in the index.html file just after the head tag) (tells the router how to compose the navigation URLs)
+Register ROUTER_PROVIDERS
+
+Like the Http library/service Angular 2's router service provides multiple services and also provides a constant
+variable, ROUTER_PROVIDERS, for accessing these services.
+
+The selector property of a component is only needed when the component will be nested within another component.
+
+Routing is component based.
+
+The @RouteConfig decorator may/will be renamed to @Routes in the future.
+
+The @RouteConfig decorator takes an array of objects.
+Each object has a path, a name, and a component.
+
+path -  defines the url path's segment for the route
+name -  anything we want as we will reference it in our views/templates or code
+        (Must be in Pascal Casing, capital letters i.e. Welcome or ProductList etc.)
+component - the component associated with this route. References the actual component, therefore you must import it
+
+There is also a useAsDefault property which we use to define the default route. The default route is displayed when no
+other route is activated
 
 
+Summary:
+If we are going to nest a component within another, we must specify a selector property for the nested component,
+then nest in another component to define where it appears. This component does not need a route.
 
+For components to be displayed as a view, within a SPA page, the component doesn't need a selector, but does need a
+configured route and one or more user actions to activate that route.
 
+Use the RouterOutlet to identify where to display the routed components view. This is most often specified in the host
+components template.
+
+Passing parameters:
+Use the same parameter name used, everywhere. Add the parameter to the route configuration path by specifying a slash,
+a colon, and the parameter name ('/product/:id')
+Define the parameter value by adding it as an element of the link parameters array
+       <a [routerLink]="['ProductDetail', {id: product.productId}]">{{ product.productName }}</a>
+Get the parameter value in the navigated-to component using the routeParams service. Be sure to import the service
+and define it as a dependency on the constructor.
+
+And again, keep the parameter name the same across file (id)
+
+To activate a route using code:
+Use the Router service
+    - Import it
+    - Define as a dependency using the constructor
+Create a method that calls the navigate method of the Router service and pass in the link parameters.
+Add a user interface element and use event binding to bind to the created method.
 
